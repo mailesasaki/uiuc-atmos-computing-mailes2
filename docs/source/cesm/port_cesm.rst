@@ -1,8 +1,8 @@
 Porting CESM
-============
++++++++++++++
 
 Modules
----------
+=======
 
 First off, in order to have CESM building and running correctly, write the following lines into a file called $HOME/.modules7 ($HOME should be your home directory)
 
@@ -17,7 +17,7 @@ These modules ensure that the right compilers and MPI library are running when y
 You might need to log into Keeling again for these to work.
 
 Checking out and downloading the model
----------------------------------------
+=======================================
 
 Make a directory for your CESM modes: ``mkdir CESM``
 
@@ -42,3 +42,151 @@ When this message pops up, type "p":
 
    - > (R)eject, accept (t)emporarily or accept (p)ermanently? p
 
+Checking the download was successful
+------------------------------------
+
+The following should be in cesm1_2_1:
+* ChangeLog
+* ChangeLog_template
+* Copyright
+* README
+* SVN_EXTERNAL_DIRECTORIES
+* models
+* scripts
+* tools
+
+In scripts:
+* ChangeLog
+* README
+* SVN_EXTERNAL_DIRECTORIES
+* ccsm_utils
+* create_clone
+* create_newcase
+* create_test
+* doc
+* link_dirtree
+* query_tests
+* sample_pes_file.xml
+* validation_testing
+
+In models:
+* atm
+* csm_share
+* dead_share
+* drv
+* glc
+* ice
+* lnd
+* ocn
+* rof
+* utils
+* wav
+
+In tools:
+* cprnc
+* mapping
+
+Outdated genf90 and pio libraries
+==================================
+
+Some of the libraries have dead links due to Googlecode going offline.
+
+Go into ``$HOME/CESM/cesm1_2_1/tools/cprnc`` and in ``SVN_EXTERNAL_DIRECTORIES``
+Remove this line:
+``genf90     http://parallelio.googlecode.com/svn/genf90/trunk_tags/genf90_140121``
+Add this line:
+``genf90    https://github.com/PARALLELIO/genf90/tags/genf90_140121``
+
+Run
+``svn propset svn:externals -F SVN_EXTERNAL_DIRECTORIES .`` 
+``svn update``
+
+Note: Don't forget the period ``.`` and a space `` `` after ``svn propset svn:externals -F SVN_EXTERNAL_DIRECTORIES``
+
+Go back up to the main directory:
+``cd cesm1_2_1``
+
+In SVN_EXTERNAL_DIRECTORIES:
+Remove this line:
+``models/utils/pio      http://parallelio.googlecode.com/svn/trunk_tags/pio1_8_12/pio``
+Add this line:
+``models/utils/pio     https://github.com/NCAR/ParallelIO.git/tags/pio1_7_2/pio``
+
+Run
+``svn propset svn:externals -F SVN_EXTERNAL_DIRECTORIES . ``
+``svn update``
+
+Note: Don't forget the period ``.`` and a space `` `` after ``svn propset svn:externals -F SVN_EXTERNAL_DIRECTORIES``
+
+Creating a new case
+===================
+
+In $HOME/CESM/cesm1_2_1/scripts: ``./create_newcase -case test1 -res f45_g37 -compset X -mach userdefined``
+
+* ``-case test1`` - This sets the name of the case to test1
+* ``-res f45_g37`` - This is the resolution of the model
+* ``-compset X`` - We're using the x component set, which is obsolete but easy to run
+* ``-mach userdefined`` - Keeling isn't recognized by CESM, so we need to use userdefined.
+
+``cd test1``
+
+Check for what we need to run the model: ``./cesm_setup``
+
+This error should pop up:
+
+.. code-block:: console
+   Use of qw(...) as parentheses is deprecated at ./cesm_setup line 252.
+   ERROR: must set xml variable OS to generate Macros file
+   ERROR: must set xml variable MPILIB to build the model
+   ERROR: must set xml variable RUNDIR to build the model
+   ERROR: must set xml variable DIN_LOC_ROOT to build the model
+   ERROR: must set xml variable COMPILER to build the model
+   ERROR: must set xml variable EXEROOT to build the model
+   ERROR: must set xml variable MAX_TASKS_PER_NODE to build the model
+   Correct above and issue cesm_setup again 
+
+This involves going into each of the following xml files and fixing the highlighted variables.
+This step also requires you to make some new directories, which for our purposes will all be in a new directory called ``$HOME/a/CESM_DATA``.
+Use ``mkdir <directory_name>`` to create the following subdirectories of CESM_DATA:
+
+* run - A run directory
+* CESM_INPUT_DATA - For input data
+* CESM_EXE_ROOT - Where the model will be run.
+
+XML File Changes
+===================
+Now go to your case directory ``test1``. There should be an assortment of different xml files, which need to be changed as according to the error message above.
+These following commands in the command line will change various variables in different xml files.
+
+(Changes in ``env_build.xml``)
+``./xmlchange OS=LINUX``
+``./xmlchange MPILIB=openmpi``
+``./xmlchange COMPILER=intel``
+``./xmlchange EXEROOT=/data/keeling/a/<NetId>/a/CESM_DATA/CESM_EXE_ROOT`` (Don't forget to put your NetId!)
+
+(Changes in ``env_run.xml``) - Note: ``env_run.xml`` is different in that it can be edited anytime during the building or running process without cleaning, so the following can be edited at any point.
+``./xmlchange RUNDIR=/data/keeling/a/<NetId>/a/CESM_DATA/run`` (Don't forget to put your NetId!)
+``./xmlchange DIN_LOC_ROOT=/data/keeling/a/<NetId>/a/CESM_DATA/CESM_INPUT_DATA`` (Don't forget to put your NetId!)
+
+(Changes in ``env_mach_pes.xml``)
+``./xmlchange MAX_TASKS_PER_NODE=8``
+
+Afterwards, clean up and try setting up again.
+``./cesm_setup -clean``
+Then run:
+``./cesm_setup``
+When all the variables are put in, there should be new files/directories in your test1 directory:
+* CaseDocs (directory)
+* Macros
+* env_derived
+* test1.run
+* user_nl_cpl
+
+(Optional) Short term archiving for output data
+-----------------------------------------------
+Normally, the model output will go in the /run directory. However, if you'd like the output to be more organized, you can activate short term archiving, which organizes the output by model in different subdirectories.
+You will need an output directory. Here, I'll be creating a new directory in $HOME/a/CESM_DATA called CESM_OUTPUT_DATA.
+In env_run.xml, set the following:
+
+DOUT_S - TRUE
+DOUT_S_ROOT - /data/keeling/a/(illinoisid)/a/CESM_DATA/CESM_OUTPUT_DATA
