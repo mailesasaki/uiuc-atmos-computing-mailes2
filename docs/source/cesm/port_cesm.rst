@@ -172,24 +172,29 @@ Now go to your case directory ``test1``. There should be an assortment of differ
 These following commands in the command line will change various variables in different xml files.
 
 (Changes in ``env_build.xml``)
+
 * ``./xmlchange OS=LINUX``
 * ``./xmlchange MPILIB=openmpi``
 * ``./xmlchange COMPILER=intel``
 * ``./xmlchange EXEROOT=/data/keeling/a/<NetId>/a/CESM_DATA/CESM_EXE_ROOT`` (Don't forget to put your NetId!)
 
 (Changes in ``env_run.xml``) - Note: ``env_run.xml`` is different in that it can be edited anytime during the building or running process without cleaning, so the following can be edited at any point.
+
 * ``./xmlchange RUNDIR=/data/keeling/a/<NetId>/a/CESM_DATA/run`` (Don't forget to put your NetId!)
 * ``./xmlchange DIN_LOC_ROOT=/data/keeling/a/<NetId>/a/CESM_DATA/CESM_INPUT_DATA`` (Don't forget to put your NetId!)
 
 (Changes in ``env_mach_pes.xml``)
+
 * ``./xmlchange MAX_TASKS_PER_NODE=8``
 
 Afterwards, clean up and try setting up again.
+
 * ``./cesm_setup -clean``
 
 Then run: ``./cesm_setup``
 
 When all the variables are put in, there should be new files/directories in your test1 directory:
+
 * CaseDocs (directory)
 * Macros
 * env_derived
@@ -203,12 +208,14 @@ Normally, the model output will go in the /run directory. However, if you'd like
 You will need an output directory. Here, I'll be creating a new directory in $HOME/a/CESM_DATA called CESM_OUTPUT_DATA.
 
 In env_run.xml, set the following:
+
 * DOUT_S - TRUE
 * DOUT_S_ROOT - /data/keeling/a/(illinoisid)/a/CESM_DATA/CESM_OUTPUT_DATA
 
 Changing Macros
 ===============
 Make these two edits to ``Macros``:
+
 * ``SLIBS+=$(shell $(NETCDF_PATH)/bin/nc-config --flibs)``
 * ``NETCDF_PATH:= /sw/netcdf4-4.7.4-intel-15.0.3`` (Don't forget the space between ``=`` and ``/sw``!)
 
@@ -217,6 +224,7 @@ Note: This is sensitive so don't give an extra space here, copy and paste these 
 Building the case
 =================
 Now, run the following in order to build your case.
+
 * ``cd cesm1_2_1/scripts/test1/``
 * ``./test1.build``
 
