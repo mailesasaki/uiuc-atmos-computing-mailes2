@@ -46,6 +46,7 @@ Checking the download was successful
 ------------------------------------
 
 The following should be in cesm1_2_1:
+
 * ChangeLog
 * ChangeLog_template
 * Copyright
@@ -56,6 +57,7 @@ The following should be in cesm1_2_1:
 * tools
 
 In scripts:
+
 * ChangeLog
 * README
 * SVN_EXTERNAL_DIRECTORIES
@@ -70,6 +72,7 @@ In scripts:
 * validation_testing
 
 In models:
+
 * atm
 * csm_share
 * dead_share
