@@ -92,29 +92,40 @@ Outdated genf90 and pio libraries
 Some of the libraries have dead links due to Googlecode going offline.
 
 Go into ``$HOME/CESM/cesm1_2_1/tools/cprnc`` and in ``SVN_EXTERNAL_DIRECTORIES``
-| Remove this line:
-| ``genf90     http://parallelio.googlecode.com/svn/genf90/trunk_tags/genf90_140121``
-| Add this line:
-| ``genf90    https://github.com/PARALLELIO/genf90/tags/genf90_140121``
+
+Remove this line:
+
+``genf90     http://parallelio.googlecode.com/svn/genf90/trunk_tags/genf90_140121``
+
+Add this line:
+
+``genf90    https://github.com/PARALLELIO/genf90/tags/genf90_140121``
 
 Run
-| ``svn propset svn:externals -F SVN_EXTERNAL_DIRECTORIES .`` 
-| ``svn update``
+
+``svn propset svn:externals -F SVN_EXTERNAL_DIRECTORIES .`` 
+
+``svn update``
 
 Note: Don't forget the period ``.`` and a space `` `` after ``svn propset svn:externals -F SVN_EXTERNAL_DIRECTORIES``
 
-Go back up to the main directory:
-| ``cd cesm1_2_1``
+Go back up to the main directory: ``cd cesm1_2_1``
 
 In SVN_EXTERNAL_DIRECTORIES:
-| Remove this line:
-| ``models/utils/pio      http://parallelio.googlecode.com/svn/trunk_tags/pio1_8_12/pio``
-| Add this line:
-| ``models/utils/pio     https://github.com/NCAR/ParallelIO.git/tags/pio1_7_2/pio``
+
+Remove this line:
+
+``models/utils/pio      http://parallelio.googlecode.com/svn/trunk_tags/pio1_8_12/pio``
+
+Add this line:
+
+``models/utils/pio     https://github.com/NCAR/ParallelIO.git/tags/pio1_7_2/pio``
 
 Run
-| ``svn propset svn:externals -F SVN_EXTERNAL_DIRECTORIES . ``
-| ``svn update``
+
+``svn propset svn:externals -F SVN_EXTERNAL_DIRECTORIES . ``
+
+``svn update``
 
 Note: Don't forget the period ``.`` and a space `` `` after ``svn propset svn:externals -F SVN_EXTERNAL_DIRECTORIES``
 
@@ -146,8 +157,10 @@ This error should pop up:
    Correct above and issue cesm_setup again 
 
 This involves going into each of the following xml files and fixing the highlighted variables.
-| This step also requires you to make some new directories, which for our purposes will all be in a new directory called ``$HOME/a/CESM_DATA``.
-| Use ``mkdir <directory_name>`` to create the following subdirectories of CESM_DATA:
+
+This step also requires you to make some new directories, which for our purposes will all be in a new directory called ``$HOME/a/CESM_DATA``.
+
+Use ``mkdir <directory_name>`` to create the following subdirectories of CESM_DATA:
 
 * run - A run directory
 * CESM_INPUT_DATA - For input data
@@ -159,23 +172,24 @@ Now go to your case directory ``test1``. There should be an assortment of differ
 These following commands in the command line will change various variables in different xml files.
 
 (Changes in ``env_build.xml``)
-| ``./xmlchange OS=LINUX``
-| ``./xmlchange MPILIB=openmpi``
-| ``./xmlchange COMPILER=intel``
-| ``./xmlchange EXEROOT=/data/keeling/a/<NetId>/a/CESM_DATA/CESM_EXE_ROOT`` (Don't forget to put your NetId!)
+* ``./xmlchange OS=LINUX``
+* ``./xmlchange MPILIB=openmpi``
+* ``./xmlchange COMPILER=intel``
+* ``./xmlchange EXEROOT=/data/keeling/a/<NetId>/a/CESM_DATA/CESM_EXE_ROOT`` (Don't forget to put your NetId!)
 
 (Changes in ``env_run.xml``) - Note: ``env_run.xml`` is different in that it can be edited anytime during the building or running process without cleaning, so the following can be edited at any point.
-| ``./xmlchange RUNDIR=/data/keeling/a/<NetId>/a/CESM_DATA/run`` (Don't forget to put your NetId!)
-| ``./xmlchange DIN_LOC_ROOT=/data/keeling/a/<NetId>/a/CESM_DATA/CESM_INPUT_DATA`` (Don't forget to put your NetId!)
+* ``./xmlchange RUNDIR=/data/keeling/a/<NetId>/a/CESM_DATA/run`` (Don't forget to put your NetId!)
+* ``./xmlchange DIN_LOC_ROOT=/data/keeling/a/<NetId>/a/CESM_DATA/CESM_INPUT_DATA`` (Don't forget to put your NetId!)
 
 (Changes in ``env_mach_pes.xml``)
-| ``./xmlchange MAX_TASKS_PER_NODE=8``
+* ``./xmlchange MAX_TASKS_PER_NODE=8``
 
 Afterwards, clean up and try setting up again.
-| ``./cesm_setup -clean``
-| Then run:
-| ``./cesm_setup``
-| When all the variables are put in, there should be new files/directories in your test1 directory:
+* ``./cesm_setup -clean``
+
+Then run: ``./cesm_setup``
+
+When all the variables are put in, there should be new files/directories in your test1 directory:
 * CaseDocs (directory)
 * Macros
 * env_derived
@@ -185,8 +199,10 @@ Afterwards, clean up and try setting up again.
 (Optional) Short term archiving for output data
 -----------------------------------------------
 Normally, the model output will go in the /run directory. However, if you'd like the output to be more organized, you can activate short term archiving, which organizes the output by model in different subdirectories.
-| You will need an output directory. Here, I'll be creating a new directory in $HOME/a/CESM_DATA called CESM_OUTPUT_DATA.
-| In env_run.xml, set the following:
+
+You will need an output directory. Here, I'll be creating a new directory in $HOME/a/CESM_DATA called CESM_OUTPUT_DATA.
+
+In env_run.xml, set the following:
 * DOUT_S - TRUE
 * DOUT_S_ROOT - /data/keeling/a/(illinoisid)/a/CESM_DATA/CESM_OUTPUT_DATA
 
@@ -201,11 +217,12 @@ Note: This is sensitive so don't give an extra space here, copy and paste these 
 Building the case
 =================
 Now, run the following in order to build your case.
-| ``cd cesm1_2_1/scripts/test1/``
-| ``./test1.build``
+* ``cd cesm1_2_1/scripts/test1/``
+* ``./test1.build``
 
 **Important!**
-| If you receive an error or need to fix anything, run ``./test1.clean_build`` before building again.
+
+If you receive an error or need to fix anything, run ``./test1.clean_build`` before building again.
 
 Running the case
 ================
@@ -226,13 +243,16 @@ In your test1 case directory, there should be a ``test1.run`` file. Add the foll
    #
 
 After the second USERDEFINED entry, remove the hash mark from the mpirun line so it looks like below:
-| (Go all the way to the middle of the test1.run file for this one) ``mpirun -np 16 $EXEROOT/cesm.exe >&! cesm.log.$LID``
+
+(Go all the way to the middle of the test1.run file for this one) ``mpirun -np 16 $EXEROOT/cesm.exe >&! cesm.log.$LID``
 
 Save your changes and run the model! ``sbatch test1.run``
-| You should receive a batch job number.
+
+You should receive a batch job number.
 
 Within the next minute or so, you should receive an email of with a title of the following format:
-| Slurm Job_id=(job id) Name=test1 Ended, Run time (run time), (COMPLETED or FAILED), ExitCode (exit code)
+
+Slurm Job_id=(job id) Name=test1 Ended, Run time (run time), (COMPLETED or FAILED), ExitCode (exit code)
 
 Troubleshooting help
 =====================
@@ -254,4 +274,5 @@ Timing info is in the timing directory in both your run and case directory.
 Output
 ======
 Any output from the model should be in your run directory.
-| The main output you may want to access should be in the NetCDF file.
+
+The main output you may want to access should be in the NetCDF file.
