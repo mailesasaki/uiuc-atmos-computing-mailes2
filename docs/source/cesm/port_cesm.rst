@@ -32,7 +32,9 @@ Checking out the model: ``svn co https://svn-ccsm-models.cgd.ucar.edu/cesm1/rele
 * The system will then ask "Store password unencrypted?". Type "yes". This will occur several times.
 
 When this message pops up, type "p":
+
 .. code-block:: console
+
    > Error validating server certificate for 'https://svn-homme-model.cgd.ucar.edu:443':
     - The certificate is not issued by a trusted authority. Use the fingerprint to validate the certificate manually!
    Certificate information:
@@ -151,6 +153,7 @@ Check for what we need to run the model: ``./cesm_setup``
 This error should pop up:
 
 .. code-block:: console
+
    Use of qw(...) as parentheses is deprecated at ./cesm_setup line 252.
    ERROR: must set xml variable OS to generate Macros file
    ERROR: must set xml variable MPILIB to build the model
@@ -242,6 +245,7 @@ Running the case
 In your test1 case directory, there should be a ``test1.run`` file. Add the following lines right under the first USERDEFINED category.
 
 .. code-block:: console
+
    #SBATCH --job-name=test1
    #SBATCH --partition=sesempi
    #SBATCH --nodes=2
@@ -277,6 +281,7 @@ If the job failed, look in the CaseStatus file and any build logs, especially th
 * Within the first two lines of the buildlog, you should see your actual error code. It should look something like this.
 
 .. code-block:: console
+
    Fri Oct 14 10:34:54 CDT 2022 /data/keeling/a/mailes2/a/CESM_DATA/CESM_EXE_ROOT/atm.bldlog.221014-103245
    cat: Srcfiles: No such file or directory
 
