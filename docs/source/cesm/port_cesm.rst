@@ -8,7 +8,7 @@ First off, in order to have CESM building and running correctly, write the follo
 
 These modules ensure that the right compilers and MPI library are running when you run CESM.
 
-.. code-block:: sh
+.. code-block:: 
    module load intel/intel-15.0.3
    module load intel/hdf5-1.10.6-intel-15.0.3
    module load intel/netcdf4-4.7.4-intel-15.0.3
