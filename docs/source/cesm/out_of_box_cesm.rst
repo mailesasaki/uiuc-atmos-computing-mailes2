@@ -27,6 +27,7 @@ Try ``cp /data/keeling/a/mailes2/CESM/cesm1_2_1/scripts/ccsm_utils/Machines/conf
 Format should look like below.
 
 .. code-block:: console
+
    <machine MACH="keeling">
            <DESC>UIUC CentOS, os is Linux, 16 pes/node, batch system is SLURM</DESC>
            <OS>LINUX</OS>
@@ -60,6 +61,7 @@ Try ``cp /data/keeling/a/mailes2/CESM/cesm1_2_1/scripts/ccsm_utils/Machines/conf
 Make sure the keeling entry (below the intel entry) looks like below.
 
 .. code-block:: console
+
    <compiler MACH="keeling" COMPILER="intel">
     <NETCDF_PATH> /sw/netcdf4-4.7.4-intel-15.0.3</NETCDF_PATH>
     <ADD_SLIBS>$(shell /sw/netcdf4-4.7.4-intel-15.0.3/bin/nc-config --flibs)</ADD_SLIBS>
@@ -85,6 +87,7 @@ Check the time limit is set to one day:
 Under the first USERDEFINED section, it should look like below.
 
 .. code-block:: console
+
    #SBATCH --job-name=${jobname}
    #SBATCH --partition=sesempi
    #SBATCH --nodes=${nodes}
@@ -103,6 +106,7 @@ Change ``--mail-user`` to your own email.
 The according PBS lines should look like the following:
 
 .. code-block:: console
+
    ##PBS -N ${jobname}
    ##PBS -q batch
    ##PBS -l nodes=${nodes}:ppn=${taskpernode}
@@ -111,6 +115,7 @@ The according PBS lines should look like the following:
 And the BSUB lines:
 
 .. code-block:: console
+
    ##BSUB -l nodes=${nodes}:ppn=${taskpernode}:walltime=${tlimit}
    ##BSUB -q batch
    ...
@@ -119,6 +124,7 @@ And the BSUB lines:
 Under the second USERDEFINED section, the MPI exec and run lines should look like this:
 
 .. code-block:: console
+
    #mpiexec -n ${maxtasks} \$EXEROOT/cesm.exe >&! cesm.log.\$LID
    mpirun -np ${maxtasks} \$EXEROOT/cesm.exe >&! cesm.log.\$LID
 
@@ -129,6 +135,7 @@ Running a case
 You should now be able to run a case! Try the following:
 
 .. code-block:: console
+
    ./create_newcase -case test1_keeling -res f45_g37 -compset X -mach keeling
    cd scripts/test1_keeling
    ./cesm_setup
