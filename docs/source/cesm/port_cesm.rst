@@ -130,7 +130,7 @@ Add this line:
 
 Run
 
-``svn propset svn:externals -F SVN_EXTERNAL_DIRECTORIES . ``
+``svn propset svn:externals -F SVN_EXTERNAL_DIRECTORIES .``
 
 ``svn update``
 
