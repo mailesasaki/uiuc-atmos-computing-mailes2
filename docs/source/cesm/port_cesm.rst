@@ -244,7 +244,7 @@ Running the case
 ================
 In your test1 case directory, there should be a ``test1.run`` file. Add the following lines right under the first USERDEFINED category.
 
-.. code-block:: console
+.. code-block:: xml
 
    #SBATCH --job-name=test1
    #SBATCH --partition=sesempi
