@@ -26,7 +26,7 @@ Try ``cp /data/keeling/a/mailes2/CESM/cesm1_2_1/scripts/ccsm_utils/Machines/conf
 
 Format should look like below.
 
-.. code-block:: console
+.. code-block:: xml
 
    <machine MACH="keeling">
            <DESC>UIUC CentOS, os is Linux, 16 pes/node, batch system is SLURM</DESC>
@@ -60,7 +60,7 @@ Try ``cp /data/keeling/a/mailes2/CESM/cesm1_2_1/scripts/ccsm_utils/Machines/conf
 
 Make sure the keeling entry (below the intel entry) looks like below.
 
-.. code-block:: console
+.. code-block:: xml
 
    <compiler MACH="keeling" COMPILER="intel">
     <NETCDF_PATH> /sw/netcdf4-4.7.4-intel-15.0.3</NETCDF_PATH>
@@ -86,7 +86,7 @@ Check the time limit is set to one day:
 
 Under the first USERDEFINED section, it should look like below.
 
-.. code-block:: console
+.. code-block:: xml
 
    #SBATCH --job-name=${jobname}
    #SBATCH --partition=sesempi
@@ -105,7 +105,7 @@ Change ``--mail-user`` to your own email.
 
 The according PBS lines should look like the following:
 
-.. code-block:: console
+.. code-block:: xml
 
    ##PBS -N ${jobname}
    ##PBS -q batch
@@ -114,7 +114,7 @@ The according PBS lines should look like the following:
 
 And the BSUB lines:
 
-.. code-block:: console
+.. code-block:: xml
 
    ##BSUB -l nodes=${nodes}:ppn=${taskpernode}:walltime=${tlimit}
    ##BSUB -q batch
@@ -123,7 +123,7 @@ And the BSUB lines:
 
 Under the second USERDEFINED section, the MPI exec and run lines should look like this:
 
-.. code-block:: console
+.. code-block:: xml
 
    #mpiexec -n ${maxtasks} \$EXEROOT/cesm.exe >&! cesm.log.\$LID
    mpirun -np ${maxtasks} \$EXEROOT/cesm.exe >&! cesm.log.\$LID
