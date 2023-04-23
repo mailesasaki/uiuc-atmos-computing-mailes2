@@ -3,7 +3,7 @@ Aquaplanet with a fixed SST
 Now that you've ported CESM successfully to Keeling and have been able to validate your port and run some example tests, 
 where do you start? With this example, hopefully you can get a sense for how you can adjust parameters within CESM and run tests.
 
-This tutorial assumes you've been able to complete :ref:`porting <port_cesm>` and :ref:`out of the box capability <out_of_box_cesm>`.
+This tutorial assumes you've been able to complete :ref:`porting<port_cesm>` and :ref:`out of the box capability<out_of_box_cesm>`.
 
 Introduction
 =============
@@ -11,7 +11,7 @@ An aquaplanet component set is typically an atmosphere only model where it's ass
 
 Here, we'll be going over how to change the sea surface temperature in order to see how the atmosphere is disturbed.
 
-This tutorial partially follows the :ref:`UCAR example for the CAM5 physics model <https://www.cesm.ucar.edu/models/simple/aquaplanet>`.
+This tutorial partially follows the :ref:`UCAR example for the CAM5 physics model<https://www.cesm.ucar.edu/models/simple/aquaplanet>`.
 
 Creating a new case
 ====================
