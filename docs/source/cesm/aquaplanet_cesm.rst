@@ -3,7 +3,7 @@ Aquaplanet with a fixed SST
 Now that you've ported CESM successfully to Keeling and have been able to validate your port and run some example tests, 
 where do you start? With this example, hopefully you can get a sense for how you can adjust parameters within CESM and run tests.
 
-This tutorial assumes you've been able to complete :ref:`porting<port_cesm>` and :ref:`out of the box capability<out_of_box_cesm>`.
+This tutorial assumes you've been able to complete :ref:`porting<Porting CESM>` and :ref:`out of the box capability<out_of_box_cesm>`.
 
 Introduction
 =============
