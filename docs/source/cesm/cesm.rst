@@ -10,7 +10,6 @@ Community Earth System Model (CESM)
    Port Validation <port_validation_cesm>
    Known Issues <known_issues_cesm>
    
-   Dealing with output <output_cesm>
    Changing SST with a simplified aquaplanet <aquaplanet_cesm>
    
    Links and resources:
