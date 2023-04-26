@@ -29,7 +29,6 @@ Changing the sea surface temperature
 For the purposes of this example, we want to change our sea surface temperature (which is fixed throughout the whole simulation) so that it's slightly hotter at the equator, like below. (Plotted with Python)
 
 .. image:: exp_vs_control.png
-
    :alt: Experimental SST versus the original, control SST
    
 Each variable is different in how it can be changed. Many can be changed through using xml files given in the case directory. However, sea surface temperature (SST) must be manually changed.
