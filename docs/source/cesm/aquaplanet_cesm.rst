@@ -66,7 +66,7 @@ where :math:`\phi` is latitude, :math:`\phi_p` is where the peak of our perturba
       end do
    end if
 
-Make sure to change all relevant variables to the values you want. ``latrad10`` (:math:`\phi_w`) is 10._r8*pio180, ``t_2``(A) is 2._r8, and ``lat00``(:math:`\phi_p`) is 0._r8*pio180 (equator).
+Make sure to change all relevant variables to the values you want. ``latrad10`` (:math:`\phi_w`) is 10._r8*pio180, ``t_2`` (A) is 2._r8, and ``lat00`` (:math:`\phi_p`) is 0._r8*pio180 (equator).
 
 sst(i,lchnk) is initially the control SST.
 
