@@ -11,7 +11,7 @@ Community Earth System Model (CESM)
    Known Issues <known_issues_cesm>
    
    Changing SST with a simplified aquaplanet <aquaplanet_cesm>
-   Looking at CESM output <output_cesm>
+   Looking at CESM output <output_cesm.ipynb>
    
    Links and resources:
    
